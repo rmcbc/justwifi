@@ -23,6 +23,7 @@ along with the JustWifi library.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "JustWifi.h"
 #include <functional>
+#include <cmath> 
 
 // -----------------------------------------------------------------------------
 // WPS callbacks
@@ -169,7 +170,7 @@ uint8_t JustWifi::_populate(uint8_t networkCount) {
                 // In case of several networks with the same SSID
                 // we want to get the one with the best RSSI
                 // Thanks to Robert (robi772 @ bitbucket.org)
-                if (entry->rssi < rssi_scan || entry->rssi == 0) {
+                if (std::abs(entry->rssi) > std::abs(rssi_scan) || entry->rssi == 0) {
                     entry->rssi = rssi_scan;
                     entry->security = sec_scan;
                     entry->channel = chan_scan;
